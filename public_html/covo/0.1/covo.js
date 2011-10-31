@@ -1,16 +1,17 @@
-/* covo.js v0.1 (c) NAGAYA shun       *
- * https://github.com/haseharu/covojs *
- * Licensed under the MIT license     */
+/* covo.js v0.1 (c) Li:d tech
+ * https://github.com/haseharu/covojs
+ * Licensed under the MIT license
+*/
 
 $(function() {
 	function split( val ) {
-		return val.split( /,¥s*/ );
+		return val.split( /,\s*/ );
 	}
 	function extractLast( term ) {
 		return split( term ).pop();
 	}
 	
-	var proxy_server = "http://covo.fluxflex.com/sample_proxy/";
+	var proxy_server = "http://covo.fluxflex.com/sample_proxy/"; //sample proxy server
 	
 	$( "#covo" ).autocomplete({
 		source: function( request, response ) {
@@ -21,7 +22,7 @@ $(function() {
 			var scriptCharset = "";
 			if(request.term.match(/^inis |^i /i)){
 				request.term = request.term.replace(/^inis |^i /i,'');
-				url ="http://api.scraperwiki.com/api/1.0/datastore/sqlite?format=jsondict&name=inis-thesaurus&query=select * from swdata where keyword like '%25" + request.term + "%25' limit 10";
+				url ="http://api.scraperwiki.com/api/1.0/datastore/sqlite?format=jsondict&name=inis-thesaurus&query=select * from swdata where keyword like '%25" + request.term + "%25' limit 10";	//sample proxy
 				dataType = "jsonp";
 			} else if(request.term.match(/^ndl |^n /i)){
 				request.term = request.term.replace(/^ndl |^n /i,'');
@@ -38,6 +39,11 @@ $(function() {
 				request.term = encodeURI(request.term);
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=fast&callback=?";
 				dataType = "jsonp";
+			} else if(request.term.match(/^lcsh |^l /i)){
+				request.term = request.term.replace(/^lcsh |^l /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=lcsh&callback=?";
+				dataType = "jsonp";
 			} else if(request.term.match(/-$/)){
 				url ="covo/0.1/list.json";
 				dataType = "json";
@@ -48,7 +54,7 @@ $(function() {
 				dataType: dataType,
 				timeout: 18000,
 				success: function( data ) {
-					if(( flag == "inis " )||(flag == "i " )){
+					if(( flag == "inis " )||(flag == "i " )||(flag == "wiki ")||(flag =="w ")||(flag == "fast ")||(flag =="f ")||(flag == "lcsh ")||(flag =="l ")||(flag == "-")){
 						response( $.map( data, function( item ) {
 							return item.keyword;
 						}));
@@ -58,25 +64,12 @@ $(function() {
 							array.push(data.results.bindings[i].label.value);
 						};
 						response(array);
-					}else if((flag == "wiki ")||(flag =="w ")){
-						response( $.map( data, function( item, i ) {
-							return item.keyword;
-						}));
-					}else if((flag == "fast ")||(flag =="f ")){
-						response( $.map( data, function( item, i ) {
-							return item.keyword;
-						}));
-					}else if(flag == "-"){
-						response( $.map( data, function( item, i ) {
-							return item.keyword;
-						}));
 					}
 				}
 			});
 		},
 		search: function(){
 			var term = extractLast( this.value );
-			var term = term.replace(/^.* /i,'');		//このvarは不要では？[hayashiyutaka]
 			if( term != "-" && term.length < 2){
 				return false;
 			} else if( term == "-"){
@@ -88,20 +81,14 @@ $(function() {
 		},
 		select: function( event, ui ) {
 			var terms = "";
-			if(this.value.match(/, -$|-$/)){
-				terms = split( this.value );
-				terms.pop();
-				terms.push( ui.item.value );
-				this.value = terms.join( ", " );
-				return false;
-			} else {
-				terms = split( this.value );
-				terms.pop();
-				terms.push( ui.item.value );
-				terms.push( "" );	//ifとelseで違うのはこの行だけでは？[hayashiyutaka]
-				this.value = terms.join( ", " );
-				return false;
+			terms = split( this.value );
+			terms.pop();
+			terms.push( ui.item.value );
+			if(!this.value.match(/, -$|-$/)){
+				terms.push( "" );
 			}
+			this.value = terms.join( ", " );
+			return false;
 		}
 	});
 });
