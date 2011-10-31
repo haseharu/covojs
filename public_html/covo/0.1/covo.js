@@ -44,6 +44,11 @@ $(function() {
 				request.term = encodeURI(request.term);
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=lcsh&callback=?";
 				dataType = "jsonp";
+			} else if(request.term.match(/^mesh |^m /i)){
+				request.term = request.term.replace(/^mesh |^m /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=mesh&callback=?";
+				dataType = "jsonp";
 			} else if(request.term.match(/^bisacsh |^b /i)){
 				request.term = request.term.replace(/^bisacsh |^b /i,'');
 				request.term = encodeURI(request.term);
@@ -84,7 +89,7 @@ $(function() {
 				dataType: dataType,
 				timeout: 18000,
 				success: function( data ) {
-					if(( flag == "inis " )||(flag == "i " )||(flag == "wiki ")||(flag =="w ")||(flag == "fast ")||(flag =="f ")||(flag == "lcsh ")||(flag =="l ")||(flag == "-")||( flag == "bisacsh " )||( flag == "b " )||( flag == "gsafd " )||( flag == "gs " )||( flag == "lcgft " )||( flag == "lcg " )||( flag == "lcshac " )||( flag == "lctgm " )||( flag == "lct " )||( flag == "gmgpc " )||( flag == "gm " )){
+					if(( flag == "inis " )||(flag == "i " )||(flag == "wiki ")||(flag =="w ")||(flag == "fast ")||(flag =="f ")||(flag == "lcsh ")||(flag =="l ")||(flag == "-")||( flag == "mesh " )||(flag == "m ")||( flag == "bisacsh " )||( flag == "b " )||( flag == "gsafd " )||( flag == "gs " )||( flag == "lcgft " )||( flag == "lcg " )||( flag == "lcshac " )||( flag == "lctgm " )||( flag == "lct " )||( flag == "gmgpc " )||( flag == "gm " )){
 						response( $.map( data, function( item ) {
 							return item.keyword;
 						}));
