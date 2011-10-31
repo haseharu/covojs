@@ -75,7 +75,7 @@ $(function() {
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=gmgpc&callback=?";
 				dataType = "jsonp";
 			} else if(request.term.match(/-$/)){
-				url ="list.json";
+				url ="/list.json";
 				dataType = "json";
 			}
 			$.ajax({
