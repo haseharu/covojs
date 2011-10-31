@@ -49,7 +49,7 @@ $(function() {
 				request.term = encodeURI(request.term);
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=bisacsh&callback=?";
 				dataType = "jsonp";
-			} else if(request.term.match(/^gsafd |^g /i)){
+			} else if(request.term.match(/^gsafd |^gs /i)){
 				request.term = request.term.replace(/^gsafd |^g /i,'');
 				request.term = encodeURI(request.term);
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=gsafd&callback=?";
@@ -70,7 +70,7 @@ $(function() {
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=lctgm&callback=?";
 				dataType = "jsonp";
 			} else if(request.term.match(/^gmgpc |^g /i)){
-				request.term = request.term.replace(/^gmgpc |^g /i,'');
+				request.term = request.term.replace(/^gmgpc |^gm /i,'');
 				request.term = encodeURI(request.term);
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=gmgpc&callback=?";
 				dataType = "jsonp";
@@ -84,7 +84,7 @@ $(function() {
 				dataType: dataType,
 				timeout: 18000,
 				success: function( data ) {
-					if(( flag == "inis " )||(flag == "i " )||(flag == "wiki ")||(flag =="w ")||(flag == "fast ")||(flag =="f ")||(flag == "lcsh ")||(flag =="l ")||(flag == "-")){
+					if(( flag == "inis " )||(flag == "i " )||(flag == "wiki ")||(flag =="w ")||(flag == "fast ")||(flag =="f ")||(flag == "lcsh ")||(flag =="l ")||(flag == "-")||( flag == "bisacsh " )||( flag == "b " )||( flag == "gsafd " )||( flag == "gs " )||( flag == "lcgft " )||( flag == "lcg " )||( flag == "lcshac " )||( flag == "lctgm " )||( flag == "lct " )||( flag == "gmgpc " )||( flag == "gm " )){
 						response( $.map( data, function( item ) {
 							return item.keyword;
 						}));
