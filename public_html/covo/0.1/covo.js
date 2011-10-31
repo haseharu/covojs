@@ -44,6 +44,36 @@ $(function() {
 				request.term = encodeURI(request.term);
 				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=lcsh&callback=?";
 				dataType = "jsonp";
+			} else if(request.term.match(/^bisacsh |^b /i)){
+				request.term = request.term.replace(/^bisacsh |^b /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=bisacsh&callback=?";
+				dataType = "jsonp";
+			} else if(request.term.match(/^gsafd |^g /i)){
+				request.term = request.term.replace(/^gsafd |^g /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=gsafd&callback=?";
+				dataType = "jsonp";
+			} else if(request.term.match(/^lcgft |^lcg /i)){
+				request.term = request.term.replace(/^lcgft |^lcg /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=lcgft&callback=?";
+				dataType = "jsonp";
+			} else if(request.term.match(/^lcshac /i)){
+				request.term = request.term.replace(/^lcshac /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=lcshac&callback=?";
+				dataType = "jsonp";
+			} else if(request.term.match(/^lctgm |^lct /i)){
+				request.term = request.term.replace(/^lctgm |^lct /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=lctgm&callback=?";
+				dataType = "jsonp";
+			} else if(request.term.match(/^gmgpc |^g /i)){
+				request.term = request.term.replace(/^gmgpc |^g /i,'');
+				request.term = encodeURI(request.term);
+				url =proxy_server + "proxy_oclc.php?q=" +request.term+ "&subject=gmgpc&callback=?";
+				dataType = "jsonp";
 			} else if(request.term.match(/-$/)){
 				url ="covo/0.1/list.json";
 				dataType = "json";

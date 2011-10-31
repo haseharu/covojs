@@ -3,5 +3,12 @@
 	{"keyword": "fast "},
 	{"keyword": "wiki "},
 	{"keyword": "mesh "},
-	{"keyword": "ndl "}
+	{"keyword": "ndl "},
+	{"keyword": "lcsh "},
+	{"keyword": "bisacsh "},
+	{"keyword": "gsafd "},
+	{"keyword": "lcgft "},
+	{"keyword": "lcshac "},
+	{"keyword": "lctgm "},
+	{"keyword": "gmgpc "}
 ]
